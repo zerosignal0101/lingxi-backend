@@ -1,0 +1,19 @@
+{
+  "name": "lingxi-backend",
+  "version": "1.0.0",
+  "description": "A nodejs project for lingxi App.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerosignal0101/lingxi-backend.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zerosignal0101/lingxi-backend/issues"
+  },
+  "homepage": "https://github.com/zerosignal0101/lingxi-backend#readme"
+}
