@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80018
 File Encoding         : 65001
 
-Date: 2024-05-09 22:28:55
+Date: 2024-05-09 23:05:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `PostInfo`;
 CREATE TABLE `PostInfo` (
-  `PostId` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `postId` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `latitude` decimal(40,20) NOT NULL COMMENT '经度',
   `longitude` decimal(40,20) NOT NULL COMMENT '纬度',
   `content` varchar(5000) NOT NULL COMMENT '帖子的内容',
@@ -32,13 +32,14 @@ CREATE TABLE `PostInfo` (
   `name` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL COMMENT '发贴人在发贴时填写的手机号',
   `address` varchar(255) DEFAULT NULL COMMENT '发贴的集合地点',
-  PRIMARY KEY (`PostId`)
+  `createUserId` int(11) NOT NULL COMMENT '创建用户Id',
+  PRIMARY KEY (`postId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='帖子信息';
 
 -- ----------------------------
 -- Records of PostInfo
 -- ----------------------------
-INSERT INTO `PostInfo` VALUES ('2', '0.00000000000000000000', '0.00000000000000000000', 'string', '2024-05-09 14:25:20', 'string', 'string', 'string', 'string', 'string', 'string', 'string');
+INSERT INTO `PostInfo` VALUES ('2', '0.00000000000000000000', '0.00000000000000000000', 'string', '2024-05-09 14:25:20', 'string', 'string', 'string', 'string', 'string', 'string', 'string', '1');
 
 -- ----------------------------
 -- Table structure for UserInfo
@@ -55,4 +56,4 @@ CREATE TABLE `UserInfo` (
 -- ----------------------------
 -- Records of UserInfo
 -- ----------------------------
-INSERT INTO `UserInfo` VALUES ('1', '刘力萌', '2021210579', '0');
+INSERT INTO `UserInfo` VALUES ('1', '刘力萌', '2021210579', '7');
