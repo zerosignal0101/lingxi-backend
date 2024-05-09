@@ -9,6 +9,7 @@ var router = express.Router();
  *  post:
  *    tags:
  *      - PostInfo
+ *    summary: 创建帖子
  *    description: 创建帖子
  *    requestBody:
  *      required: true
@@ -53,6 +54,9 @@ var router = express.Router();
  *              address:
  *                type: string
  *                description: 发帖者地址
+ *              createUserId:
+ *                type: integer
+ *                description: 创建用户Id
  *    responses:
  *      '200':
  *        description: 创建成功
@@ -60,7 +64,7 @@ var router = express.Router();
  *        description: 创建失败
  */
 router.post('/', function (req, res) {
-    var query = `INSERT INTO PostInfo (latitude, longitude, content, postingTime, tags, title, anthorName, image, name, phone, address) VALUES ("${req.body.latitude}", "${req.body.longitude}", "${req.body.content}", "${req.body.postingTime}", "${req.body.tags}", "${req.body.title}", "${req.body.anthorName}", "${req.body.image}", "${req.body.name}", "${req.body.phone}", "${req.body.address}")`;
+    var query = `INSERT INTO PostInfo (latitude, longitude, content, postingTime, tags, title, anthorName, image, name, phone, address, createUserId) VALUES ("${req.body.latitude}", "${req.body.longitude}", "${req.body.content}", "${req.body.postingTime}", "${req.body.tags}", "${req.body.title}", "${req.body.anthorName}", "${req.body.image}", "${req.body.name}", "${req.body.phone}", "${req.body.address}", "${req.body.createUserId}")`;
     connection.query(query, function (err) {
         if (err) return res.json(errorResponse("Error: " + err));
         res.json(successResponse("创建帖子成功!"));
@@ -73,6 +77,7 @@ router.post('/', function (req, res) {
  *   delete:
  *     tags:
  *       - PostInfo
+ *     summary: 删除帖子
  *     description: 删除帖子
  *     produces:
  *       - application/json
@@ -102,6 +107,7 @@ router.delete('/:postId', function (req, res) {
  *   get:
  *     tags:
  *       - PostInfo
+ *     summary: 获取分页帖子列表
  *     description: 获取分页帖子列表
  *     produces:
  *       - application/json
@@ -135,13 +141,13 @@ router.get('/', function (req, res) {
     var limit = pageSize;
 
     // 构建查询帖子总数的语句
-    var countQuery = 'SELECT COUNT(*) FROM PostInfo';
+    var countQuery = 'SELECT COUNT(*) FROM PostInfo a left join UserInfo b on a.createUserId=b.userId where b.creditScore>3';
 
     connection.query(countQuery, function (err, countResult) {
         if (err) return res.json(errorResponse("Error: " + err));
 
         // 构建分页查询语句
-        var query = `SELECT * FROM PostInfo ORDER BY PostId DESC LIMIT ${limit} OFFSET ${offset}`;
+        var query = `SELECT a.* FROM PostInfo a left join UserInfo b on a.createUserId=b.userId where b.creditScore>3 ORDER BY postId DESC LIMIT ${limit} OFFSET ${offset}`;
 
         connection.query(query, function (err, result) {
             if (err) return res.json(errorResponse("Error: " + err));

@@ -7,4 +7,10 @@ var connection = mysql.createConnection({
     database: 'MakingFriends'
 });
 
+//var connection = mysql.createConnection({
+//    host: '127.0.0.1',
+//    user: 'root',
+//    password: '123456',
+//    database: 'MakingFriends'
+//});
 module.exports = connection;

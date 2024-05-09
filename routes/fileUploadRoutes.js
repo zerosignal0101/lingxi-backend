@@ -24,7 +24,8 @@ var upload = multer({ storage: storage });
  * /upload:
  *   post:
  *     tags:
- *       - File Upload
+ *       - FileUpload
+ *     summary: 上传图片
  *     description: 上传图片
  *     consumes:
  *       - multipart/form-data
